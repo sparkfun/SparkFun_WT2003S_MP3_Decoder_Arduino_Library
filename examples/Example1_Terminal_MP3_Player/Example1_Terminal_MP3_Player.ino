@@ -1,3 +1,9 @@
+/*
+ * Title stuff
+ * 
+ * 
+ */
+
 #include "SparkFun_WT2003S_MP3_Decoder.h"
 
 SoftwareSerial mp3_sws(2,3);
