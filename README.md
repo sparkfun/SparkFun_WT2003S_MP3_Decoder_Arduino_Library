@@ -1,13 +1,15 @@
-SparkFun LPS25HB Absolute Barometric Pressure Sensor Arduino Library
+SparkFun WT2003S MP3 Decoder Arduino Library
 ========================================
 
 ![SparkFun Qwiic Pressure Sensor w/ LPS25HB](https://cdn.sparkfun.com//assets/parts/1/3/0/1/3/14767-Qwiic_Pressure_Sensor_-_LPS25HB-05.jpg)
 
-[*SparkFun Qwiic Pressure Sensor w/ LPS25HB (SPX-14767)*](https://www.sparkfun.com/products/14767)
+[*SparkFun Qwiic Pressure Sensor w/ LPS25HB (SPX-14767)*](https://www.sparkfun.com/products/14810)
 
-An Arduino library that provides basic functions for getting pressure and temperature readings. 
-Allows the user to support up to two sensors on a given I2C bus, and allows use of multiple I2C busses.
-Additional access to settings is available for advanced use.
+This library provides full access to the functions of the WT2003S MP3 decoder through a serial connection and a "busy" pin. This library is very simple to use with either a hardware or software serial port. The simple dependencies (HardwareSerial and SoftwareSerial) make it suitable for use on any Arduino-compatible platform. 
+
+The WT2003S combines two functions needed to play .mp3 files into one package and adds a simple serial control interface. Normally to play a .mp3 file one would need to choose a decoder IC AND provide a method for storing and selecting the files. The WT2003S removes that complexity by combining an SD card interface and .mp3 decoder. Now in order to play a song all you need to do is save it to an SD card, plug it into the WT2003S breakout, and send a few commands over serial. This allows you to easily integrate sound into any Arduino project.
+
+This library is intended for use with the WT2003S MP3 Decoder Breakout board [*link*](linkpath), as opposed to another option employing the WT2003S -- the Qwiic MP3 Trigger. In case you are wondering which to use here is a little breakdown: If you want direct access to the WT2003S IC for complete control *and* you have a spare serial port (Hardware or Software) in your project then the Breakout board is good for you. If your project is running low on pins and you already use the I2C bus, or you want to trigger .mp3s without even using an external microcontroller then the Qwiic MP3 Trigger is right for you!
 
 Repository Contents
 -------------------
@@ -25,13 +27,12 @@ Documentation
 Products that use this Library 
 ---------------------------------
 
-* [SPX-14767](https://www.sparkfun.com/products/14767) - SparkX version
+* [SPX-14767](https://www.sparkfun.com/products/14810) - SparkX version
 
 Version History
 ---------------
-* [V 1.0.1](https://github.com/sparkfun/SparkFun_LPS25HB_Arduino_Library/tree/V_1.0.1) - Initial release
-* [V 1.0.2](https://github.com/sparkfun/SparkFun_LPS25HB_Arduino_Library/tree/V_1.0.2) - Boolean returns
-* [V 1.0.3](https://github.com/sparkfun/SparkFun_LPS25HB_Arduino_Library/tree/V_1.0.3) - Fixed reading bug
+* [V 1.0.0](https://github.com/sparkfun/SparkFun_WT2003S_MP3_Decoder_Arduino_Library/tree/V_1.0.1) - Initial release
+
 
 License Information
 -------------------
