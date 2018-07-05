@@ -1,6 +1,18 @@
+/*
 
+SparkFun_WT2003S_MP3_Decoder.h
 
+This library provides full access to the functions of the WT2003S MP3 decoder through a serial connection and a "busy" pin. 
+Use is very simple with either a hardware or software serial port. 
+The simple dependencies (HardwareSerial and SoftwareSerial) make it suitable for use on any Arduino-compatible platform. 
 
+Created: June 2018
+Last Updated: July 2018
+
+Authors:
+Owen Lyke, N. Seidle
+
+*/
 
 
 #ifndef SF_WT2003S_MP3_H
