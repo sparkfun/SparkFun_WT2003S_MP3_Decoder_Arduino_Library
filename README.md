@@ -1,7 +1,7 @@
 SparkFun WT2003S MP3 Decoder Arduino Library
 ========================================
 
-![SparkFun WT2003S MP3 Decoder](https://cdn.sparkfun.com/assets/parts/1/3/0/7/7/14810-MP3_Breakout_WT2003S-01.jpg)]
+![SparkFun WT2003S MP3 Decoder](https://cdn.sparkfun.com/assets/parts/1/3/0/7/7/14810-MP3_Breakout_WT2003S-01.jpg)
 
 [*SparkFun WT2003S MP3 Decoder (SPX-14810)*](https://www.sparkfun.com/products/14810)
 
