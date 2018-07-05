@@ -1,3 +1,17 @@
+/*
+
+SparkFun_WT2003S_MP3_Decoder.cpp
+
+Header file: SparkFun_WT2003S_MP3_Decoder.h
+
+Created: June 2018
+Last Updated: July 2018
+
+Authors:
+Owen Lyke, N. Seidle
+
+*/
+
 #include "SparkFun_WT2003S_MP3_Decoder.h"
 
 WT2003S::WT2003S()

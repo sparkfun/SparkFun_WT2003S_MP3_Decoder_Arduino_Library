@@ -31,7 +31,7 @@ Products that use this Library
 
 Version History
 ---------------
-* [V 1.0.0](https://github.com/sparkfun/SparkFun_WT2003S_MP3_Decoder_Arduino_Library/tree/V_1.0.0) - Initial release
+* [V 1.0.0](https://github.com/sparkfun/SparkFun_WT2003S_MP3_Decoder_Arduino_Library/releases/tag/1.0.0) - Initial release
 
 
 License Information
