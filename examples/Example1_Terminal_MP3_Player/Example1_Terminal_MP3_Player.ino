@@ -1,35 +1,61 @@
 /*
- * Title stuff
- * 
- * 
- */
+  WT2003 S Example1_Terminal_MP3_Player
 
-#include "SparkFun_WT2003S_MP3_Decoder.h"
+  This example makes an MP3 player that can be controlled from the terminal window on a computer. 
+  It exposes the full set of commands that are available for the WT2003S
+ 
+  Using the WT2003S MP3 Decoder IC on the SparkFun breakout board with Arduino Uno
+  By: Owen Lyke
+  SparkFun Electronics
+  Date: July 5th 2018
+  License: This code is public domain but you buy me a beer if you use this and we meet someday (Beerware license).
 
-SoftwareSerial mp3_sws(2,3);
+  Feel like supporting our work? Buy a board from SparkFun!
+  https://www.sparkfun.com/products/14810
 
-WT2003S MP3;
+  Hardware Connections:
+  WT2003S Breakout Pin ---> Arduino Pin 
+  -------------------------------------
+  TXO                  --->   2
+  RXI                  --->   3
+  5V                   --->  5V
+  GND                  ---> GND
+  BUSY                 --->   7 (Optional)
 
-#define NUM_TRACKS 4
+  Don't forget to load some MP3s on your sdCard and plug it in too!
+*/
 
+#include "SparkFun_WT2003S_MP3_Decoder.h" // Click here to get the library: http://librarymanager/All#SparkFun_WT2003S
+
+// Defining some status codes from the WT2003S
 #define STATUS_PLAY 0x01
 #define STATUS_STOP 0x02
 #define STATUS_PAUSE 0x03
 
-bool autoplay = true;
+SoftwareSerial mp3_sws(2,3);    // Use software serial so that the Arduino hardware serial can be used for control commands
+
+WT2003S MP3;                    // Create an object of the WT2003S class called MP3
+        
+bool autoplay = true;           
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600);
   while(!Serial){};
-  MP3.begin(mp3_sws, 7);    // Its pretty cool cause you can pass either a Hardware serial port or a software serial port!
+  MP3.begin(mp3_sws);      // Beginning the MP3 player requires a serial port (either hardware or software!!!)
 
   Serial.println("MP3 Breakout - Example1 Serial Control");
   Serial.println();
 
   printMenu();
+  
+  Serial.print("Number of tracks on SD card: "); 
+  Serial.println(MP3.getSongCount());
 
-  Serial.print("Number of tracks on SD card: "); Serial.println(MP3.getSongCount());
+  if(MP3.getSongCount() == 0)
+  {
+    Serial.println("Oh no! No songs found... try adding songs or plugging in the sd card then try again");
+    while(1);   // Hold here
+  }
 
   MP3.setVolume(4);
   MP3.playTrackNumber(1);
@@ -63,17 +89,21 @@ void loop() {
     {
       Serial.println("Next track:");
       MP3.playNext();
-      delay(250);           // It takes a moment for the device to know the next somg name
+      delay(200);           // It takes a moment for the device to start playing the next song
       MP3.getSongName();
-      Serial.print("Playing: "); Serial.write(MP3.songName, 8); Serial.println();
+      Serial.print("Playing: "); 
+      Serial.write(MP3.songName, 8); 
+      Serial.println();
     }
     else if(cmd == 'l')
     {
       Serial.println("Last track:");
       MP3.playPrevious();
-      delay(250);           // It takes a moment for the device to know the next somg name
+      delay(200);           // It takes a moment for the device to know the next song name
       MP3.getSongName();
-      Serial.print("Playing: "); Serial.write(MP3.songName, 8); Serial.println();
+      Serial.print("Playing: "); 
+      Serial.write(MP3.songName, 8); 
+      Serial.println();
     }
     else if(cmd == 'p')
     {
@@ -82,22 +112,25 @@ void loop() {
       {
         Serial.println("Paused: ('p' to resume)");
         autoplay = false;
-        MP3.pause();  // Should pause
+        MP3.pause();                          // Should pause when currently playing
       }
       else if(status == STATUS_PAUSE)
       {
-        Serial.println("Resuming:");
-        autoplay = true;
-        MP3.pause();  // Should play
-        delay(100);   // Prevents autoplay from jumping to the next track right away
+        MP3.pause();                          // Should play when already paused
+        delay(200);                           // It takes a moment for the device to know the next song name
+        Serial.print("Resuming: ");
+        MP3.getSongName();
+        Serial.write(MP3.songName, 8); 
+        Serial.println();
       }
       else if(status == STATUS_STOP)
       {
-        MP3.pause();  // Plays from beginning of current track
-        delay(250);           // It takes a moment for the device to know the next somg name
+        MP3.pause();                          // Plays from beginning of current track
+        delay(200);                           // It takes a moment for the device to know the next song name
         MP3.getSongName();
-        autoplay = true;
-        Serial.print("Playing: "); Serial.write(MP3.songName, 8); Serial.println();
+        Serial.print("Playing: "); 
+        Serial.write(MP3.songName, 8); 
+        Serial.println();
       }
     }
     else if(cmd == 's')
@@ -119,6 +152,26 @@ void loop() {
         Serial.println(" off");
       }
     }
+    else if(cmd == '?')
+    {
+      uint8_t status = MP3.getPlayStatus();
+      if(status == STATUS_PLAY)
+      {
+        MP3.getSongName();
+        autoplay = true;
+        Serial.print("Playing: "); 
+        Serial.write(MP3.songName, 8); 
+        Serial.println();
+      }
+      else if(status == STATUS_STOP)
+      {
+        Serial.println("MP3 player is stopped");
+      }
+      else
+      {
+        Serial.println("MP3 player is paused");
+      }
+    }
     else
     {
       printMenu();
@@ -126,12 +179,15 @@ void loop() {
   }
 
   // Autoplay controller
-  if((MP3.isPlaying() == false) && (autoplay == true))
+  uint8_t playStatus = MP3.getPlayStatus();
+  if((playStatus == STATUS_STOP) && (autoplay == true))
   {
     MP3.playNext();
-    delay(250);           // It takes a moment for the device to know the next somg name
+    delay(250);           // It takes a moment for the device to know the next song name
     MP3.getSongName();
-    Serial.print("Playing: "); Serial.write(MP3.songName, 8); Serial.println();
+    Serial.print("Playing: "); 
+    Serial.write(MP3.songName, 8); 
+    Serial.println();
   }
 }
 
@@ -144,6 +200,7 @@ void printMenu( void )
   Serial.println("'p'         : play or pause");
   Serial.println("'s'         : stop playing");
   Serial.println("'a'         : toggle autoplay");
+  Serial.println("'?'         : what is playing?");
   Serial.println();
 }
 
