@@ -174,23 +174,43 @@ void loop() {
     }
     else if(cmd == 'w')
     { 
-		MP3.setPlaymodeSingleNoLoop();
+      Serial.println("Set play mode to 'SingleNoLoop'");
+		  MP3.setPlaymodeSingleNoLoop();
     }  
     else if(cmd == 'x')
     { 
-		MP3.setPlaymodeSingleLoop();
-	}
+      Serial.println("Set play mode to 'SingleLoop'");
+		  MP3.setPlaymodeSingleLoop();
+	  }
     else if(cmd == 'y')
     { 
-		MP3.setPlaymodeAllLoop();
-	}    
-	else if(cmd == 'z')
+      Serial.println("Set play mode to 'AllLoop'");
+		  MP3.setPlaymodeAllLoop();
+	  }    
+	  else if(cmd == 'z')
     { 
-		MP3.setPlaymodeRandom();
-	}
-	else if(cmd == '2')
+      Serial.println("Set play mode to 'Random'");
+		  MP3.setPlaymodeRandom();
+	  }
+	  else if((cmd <= '9') && (cmd >= '1'))
     { 
-        MP3.playTrackNumber(2);
+      uint8_t numSongs = MP3.getSongCount();
+      if(numSongs >= (cmd - '0'))
+      {
+        MP3.playTrackNumber(cmd - '0');
+        Serial.print("Playing track #");
+        Serial.print(cmd - '0');
+        Serial.println(" (in copy-to-sd order)");
+      }
+      else
+      {
+        Serial.print("Error: There are only ");
+        Serial.print(numSongs);
+        Serial.println(" songs on the SD card.");
+        Serial.print("You asked to play song # ");
+        Serial.print(cmd - '0');
+        Serial.println(".");
+      }
     }
     else
     {
@@ -225,8 +245,8 @@ void printMenu( void )
   Serial.println("'x'         : set playmode single loop");
   Serial.println("'y'         : set playmode all loop");
   Serial.println("'z'         : set playmode random");
-  Serial.println("'2'         : play the file that was copied to the SD card as the second file");
-  Serial.println("              (Yes, this really does go by copy order.)");
+  Serial.println("'X'         : play the file that was copied to the SD card as the Xth file - you just type the number you want - (x in [1,9])");
+  Serial.println("             (Yes, this really does go by copy order.)");
   Serial.println();
 }
 
