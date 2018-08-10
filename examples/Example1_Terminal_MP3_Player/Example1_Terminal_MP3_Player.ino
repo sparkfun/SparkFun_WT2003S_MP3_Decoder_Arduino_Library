@@ -58,7 +58,6 @@ void setup() {
   }
 
   MP3.setVolume(4);
-  MP3.playTrackNumber(1);
 }
 
 void loop() {
