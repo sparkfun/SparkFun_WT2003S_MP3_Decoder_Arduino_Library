@@ -5,9 +5,9 @@
   It exposes the full set of commands that are available for the WT2003S
  
   Using the WT2003S MP3 Decoder IC on the SparkFun breakout board with Arduino Uno
-  By: Owen Lyke
+  By: Owen Lyke, Tina Tenbergen
   SparkFun Electronics
-  Date: July 5th 2018
+  Date: July 5th 2018, Aug 9 2018
   License: This code is public domain but you buy me a beer if you use this and we meet someday (Beerware license).
 
   Feel like supporting our work? Buy a board from SparkFun!
@@ -172,7 +172,23 @@ void loop() {
         Serial.println("MP3 player is paused");
       }
     }
-    else
+    else if(cmd == 'w')
+    { 
+		MP3.setPlaymodeSingleNoLoop();
+    }  
+    else if(cmd == 'x')
+    { 
+		MP3.setPlaymodeSingleLoop();
+	}
+    else if(cmd == 'y')
+    { 
+		MP3.setPlaymodeAllLoop();
+	}    
+	else if(cmd == 'z')
+    { 
+		MP3.setPlaymodeRandom();
+	}
+	else
     {
       printMenu();
     }
@@ -201,6 +217,10 @@ void printMenu( void )
   Serial.println("'s'         : stop playing");
   Serial.println("'a'         : toggle autoplay");
   Serial.println("'?'         : what is playing?");
+  Serial.println("'w'         : set playmode single no loop");
+  Serial.println("'x'         : set playmode single loop");
+  Serial.println("'y'         : set playmode all loop");
+  Serial.println("'z'         : set playmode random");
   Serial.println();
 }
 
