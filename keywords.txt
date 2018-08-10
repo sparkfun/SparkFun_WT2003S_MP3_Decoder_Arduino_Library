@@ -14,6 +14,10 @@ songName	KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
+setPlaymodeSingleNoLoop	KEYWORD2
+setPlaymodeSingleLoop	KEYWORD2
+setPlaymodeAllLoop	KEYWORD2
+setPlaymodeRandom	KEYWORD2
 getSongCount	KEYWORD2
 getSongName	KEYWORD2
 playTrackNumber	KEYWORD2
