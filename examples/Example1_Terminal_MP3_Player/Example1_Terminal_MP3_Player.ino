@@ -188,7 +188,11 @@ void loop() {
     { 
 		MP3.setPlaymodeRandom();
 	}
-	else
+	else if(cmd == '2')
+    { 
+        MP3.playTrackNumber(2);
+    }
+    else
     {
       printMenu();
     }
@@ -221,6 +225,8 @@ void printMenu( void )
   Serial.println("'x'         : set playmode single loop");
   Serial.println("'y'         : set playmode all loop");
   Serial.println("'z'         : set playmode random");
+  Serial.println("'2'         : play the file that was copied to the SD card as the second file");
+  Serial.println("              (Yes, this really does go by copy order.)");
   Serial.println();
 }
 
