@@ -10,6 +10,7 @@ Last Updated: July 2018
 Authors:
 Owen Lyke, N. Seidle
 
+Meddled with 2018-08 to add loop functionality
 */
 
 #include "SparkFun_WT2003S_MP3_Decoder.h"
@@ -81,6 +82,37 @@ void WT2003S::begin(HardwareSerial &serialPort, uint8_t pin)
 	}
 }
 
+uint8_t 	WT2003S::setPlaymodeSingleNoLoop( void )
+{
+	commandBytes[0] = MP3_COMMAND_SET_PLAYMODE;
+	commandBytes[1] = MP3_COMMAND_SET_PLAYMODE_SINGLE_NO_LOOP;
+	sendCommand(2);
+	return (getResponse());
+}
+
+uint8_t 	WT2003S::setPlaymodeSingleLoop( void )
+{
+	commandBytes[0] = MP3_COMMAND_SET_PLAYMODE;
+	commandBytes[1] = MP3_COMMAND_SET_PLAYMODE_SINGLE_LOOP;
+	sendCommand(2);
+	return (getResponse());
+}
+
+uint8_t 	WT2003S::setPlaymodeAllLoop( void )
+{
+	commandBytes[0] = MP3_COMMAND_SET_PLAYMODE;
+	commandBytes[1] = MP3_COMMAND_SET_PLAYMODE_ALL_LOOP;
+	sendCommand(2);
+	return (getResponse());
+}
+
+uint8_t 	WT2003S::setPlaymodeRandom( void )
+{
+	commandBytes[0] = MP3_COMMAND_SET_PLAYMODE;
+	commandBytes[1] = MP3_COMMAND_SET_PLAYMODE_RANDOM;
+	sendCommand(2);
+	return (getResponse());
+}
 uint16_t WT2003S::getSongCount( void )
 {
 	commandBytes[0] = MP3_COMMAND_GET_SONG_COUNT;
