@@ -4,7 +4,7 @@
   WT2003 S Example1_Terminal_MP3_Player
   This example makes an MP3 player that can be controlled from the terminal window on a computer. 
   It exposes the full set of commands that are available for the WT2003S
- 
+  
   Using the WT2003S MP3 Decoder IC on the SparkFun breakout board with Arduino Uno
   By: Owen Lyke, Tina Tenbergen
   SparkFun Electronics
