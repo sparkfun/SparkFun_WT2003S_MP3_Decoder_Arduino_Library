@@ -1,6 +1,5 @@
 /*
   WT2003 S Example1_Terminal_MP3_Player
-
   This example makes an MP3 player that can be controlled from the terminal window on a computer. 
   It exposes the full set of commands that are available for the WT2003S
  
@@ -9,10 +8,8 @@
   SparkFun Electronics
   Date: July 5th 2018, Aug 9 2018
   License: This code is public domain but you buy me a beer if you use this and we meet someday (Beerware license).
-
   Feel like supporting our work? Buy a board from SparkFun!
   https://www.sparkfun.com/products/14810
-
   Hardware Connections:
   WT2003S Breakout Pin ---> Arduino Pin 
   -------------------------------------
@@ -21,7 +18,6 @@
   5V                   --->  5V
   GND                  ---> GND
   BUSY                 --->   7 (Optional)
-
   Don't forget to load some MP3s on your sdCard and plug it in too!
 */
 
@@ -188,6 +184,10 @@ void loop() {
     { 
 		MP3.setPlaymodeRandom();
 	}
+	else if(cmd == '2')
+    { 
+		MP3.playTrackNumber(2);
+	}
 	else
     {
       printMenu();
@@ -221,6 +221,8 @@ void printMenu( void )
   Serial.println("'x'         : set playmode single loop");
   Serial.println("'y'         : set playmode all loop");
   Serial.println("'z'         : set playmode random");
+  Serial.println("'2'         : play the file that was copied to the SD card as the second file");
+  Serial.println("              (Yes, this really does go by copy order.)");
   Serial.println();
 }
 
