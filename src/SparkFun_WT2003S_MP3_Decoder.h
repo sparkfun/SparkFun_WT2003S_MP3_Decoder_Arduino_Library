@@ -7,12 +7,10 @@ Use is very simple with either a hardware or software serial port.
 The simple dependencies (HardwareSerial and SoftwareSerial) make it suitable for use on any Arduino-compatible platform. 
 
 Created: June 2018
-Last Updated: July 2018
+Last Updated: August 2018
 
 Authors:
-Owen Lyke, N. Seidle
-
-Meddled with 2018-08 to add loop functionality
+Owen Lyke, N. Seidle, T. Tenbergen
 
 */
 

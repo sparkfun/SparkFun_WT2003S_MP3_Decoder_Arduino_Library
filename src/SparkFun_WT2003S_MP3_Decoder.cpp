@@ -5,12 +5,11 @@ SparkFun_WT2003S_MP3_Decoder.cpp
 Header file: SparkFun_WT2003S_MP3_Decoder.h
 
 Created: June 2018
-Last Updated: July 2018
+Last Updated: August 2018
 
 Authors:
-Owen Lyke, N. Seidle
+Owen Lyke, N. Seidle, T. Tenbergen
 
-Meddled with 2018-08 to add loop functionality
 */
 
 #include "SparkFun_WT2003S_MP3_Decoder.h"
@@ -19,8 +18,7 @@ WT2003S::WT2003S()
 {
 	
 }
-
-void WT2003S::begin(SoftwareSerial &serialPort)
+void 		WT2003S::begin(SoftwareSerial &serialPort)
 {
 	_hwSerialPort = NULL;
 	_swSerialPort = &serialPort;
@@ -34,8 +32,7 @@ void WT2003S::begin(SoftwareSerial &serialPort)
 		commandBytes[indi] = 0x00;
 	}
 }
-
-void WT2003S::begin(HardwareSerial &serialPort)
+void 		WT2003S::begin(HardwareSerial &serialPort)
 {
 	_hwSerialPort = &serialPort;
 	_swSerialPort = NULL;
@@ -49,8 +46,7 @@ void WT2003S::begin(HardwareSerial &serialPort)
 		commandBytes[indi] = 0x00;
 	}
 }
-
-void WT2003S::begin(SoftwareSerial &serialPort, uint8_t pin)
+void 		WT2003S::begin(SoftwareSerial &serialPort, uint8_t pin)
 {
 	_hwSerialPort = NULL;
 	_swSerialPort = &serialPort;
@@ -65,8 +61,7 @@ void WT2003S::begin(SoftwareSerial &serialPort, uint8_t pin)
 		commandBytes[indi] = 0x00;
 	}
 }
-
-void WT2003S::begin(HardwareSerial &serialPort, uint8_t pin)
+void 		WT2003S::begin(HardwareSerial &serialPort, uint8_t pin)
 {
 	_hwSerialPort = &serialPort;
 	_swSerialPort = NULL;
@@ -81,7 +76,6 @@ void WT2003S::begin(HardwareSerial &serialPort, uint8_t pin)
 		commandBytes[indi] = 0x00;
 	}
 }
-
 uint8_t 	WT2003S::setPlaymodeSingleNoLoop( void )
 {
 	commandBytes[0] = MP3_COMMAND_SET_PLAYMODE;
@@ -89,7 +83,6 @@ uint8_t 	WT2003S::setPlaymodeSingleNoLoop( void )
 	sendCommand(2);
 	return (getResponse());
 }
-
 uint8_t 	WT2003S::setPlaymodeSingleLoop( void )
 {
 	commandBytes[0] = MP3_COMMAND_SET_PLAYMODE;
@@ -97,7 +90,6 @@ uint8_t 	WT2003S::setPlaymodeSingleLoop( void )
 	sendCommand(2);
 	return (getResponse());
 }
-
 uint8_t 	WT2003S::setPlaymodeAllLoop( void )
 {
 	commandBytes[0] = MP3_COMMAND_SET_PLAYMODE;
@@ -105,7 +97,6 @@ uint8_t 	WT2003S::setPlaymodeAllLoop( void )
 	sendCommand(2);
 	return (getResponse());
 }
-
 uint8_t 	WT2003S::setPlaymodeRandom( void )
 {
 	commandBytes[0] = MP3_COMMAND_SET_PLAYMODE;
@@ -113,7 +104,7 @@ uint8_t 	WT2003S::setPlaymodeRandom( void )
 	sendCommand(2);
 	return (getResponse());
 }
-uint16_t WT2003S::getSongCount( void )
+uint16_t	WT2003S::getSongCount( void )
 {
 	commandBytes[0] = MP3_COMMAND_GET_SONG_COUNT;
   	sendCommand(1);
@@ -194,7 +185,6 @@ void 		WT2003S::getSongName()
 	}
 	songName[8] = '\0'; //Terminate this string
 }
-
 uint8_t 	WT2003S::playTrackNumber(uint8_t trackNumber)
 {
 	commandBytes[0] = MP3_COMMAND_PLAY_INDEX_IN_ROOT;
@@ -203,7 +193,6 @@ uint8_t 	WT2003S::playTrackNumber(uint8_t trackNumber)
 	sendCommand(3);
 	return (getResponse());
 }
-
 uint8_t 	WT2003S::playFileName(uint8_t fileNumber)
 {
 	commandBytes[0] = MP3_COMMAND_PLAY_FILE_IN_ROOT;
@@ -216,7 +205,6 @@ uint8_t 	WT2003S::playFileName(uint8_t fileNumber)
 	sendCommand(5);
 	return (getResponse());
 }
-
 uint8_t 	WT2003S::setVolume(uint8_t volumeLevel)
 {
 	if (volumeLevel > 31) volumeLevel = 31; //Error check
@@ -225,7 +213,6 @@ uint8_t 	WT2003S::setVolume(uint8_t volumeLevel)
 	sendCommand(2);
 	return (getResponse());
 }
-
 uint8_t 	WT2003S::getVolume( void )
 {
 	commandBytes[0] = MP3_COMMAND_GET_VOLUME;
@@ -237,7 +224,6 @@ uint8_t 	WT2003S::getVolume( void )
 	//First byte is 0xC1, second bye is volume level
 	return (volLevel & 0xFF);
 }
-
 uint8_t 	WT2003S::setEQ(uint8_t eqType)
 {
 	if (eqType > 5) eqType = 0; //Error check. Set to normal by default
@@ -246,7 +232,6 @@ uint8_t 	WT2003S::setEQ(uint8_t eqType)
 	sendCommand(2);
 	return (getResponse());
 }
-
 bool 		WT2003S::isPlaying( void )
 {
 	if(_busyPin == NULL)
@@ -256,42 +241,36 @@ bool 		WT2003S::isPlaying( void )
 	if(digitalRead(_busyPin) == HIGH) return(true); //Song is playing
   	return (false);
 }
-
 uint8_t 	WT2003S::getPlayStatus( void )
 {
 	commandBytes[0] = MP3_COMMAND_GET_CURRENT_STATE;
 	sendCommand(1);
 	return (getTwoByteResponse() & 0xFF);
 }
-
 void 		WT2003S::pause( void )
 {
 	commandBytes[0] = MP3_COMMAND_PAUSE;
 	sendCommand(1);
 	return (getResponse());
 }
-
 uint8_t 	WT2003S::playNext( void )
 {
 	commandBytes[0] = MP3_COMMAND_NEXT;
 	sendCommand(1);
 	return (getResponse());
 }
-
 uint8_t 	WT2003S::playPrevious( void )
 {
 	commandBytes[0] = MP3_COMMAND_PREVIOUS;
 	sendCommand(1);
 	return (getResponse());
 }
-
 uint8_t 	WT2003S::stopPlaying( void )
 {
 	commandBytes[0] = MP3_COMMAND_STOP;
 	sendCommand(1);
 	return (getResponse());
 }
-
 void 		WT2003S::sendCommand(uint8_t commandLength)
 {
 	if(_hwSerialPort == NULL)
@@ -301,7 +280,6 @@ void 		WT2003S::sendCommand(uint8_t commandLength)
 	}
 	sendCommandHW(commandLength);
 }
-
 uint8_t 	WT2003S::getResponse( void )
 {
 	if (responseAvailable() == false) return (0xFF); //Timeout
@@ -360,7 +338,6 @@ uint16_t 	WT2003S::getTwoByteResponse( void )
 
 	return (response);
 }
-
 bool 		WT2003S::responseAvailable( void )
 {
 	uint8_t counter = 0;
@@ -389,8 +366,6 @@ bool 		WT2003S::responseAvailable( void )
 	}
 	return (true);
 }
-
-
 void 		WT2003S::clearBuffer( void )
 {
 	if(_hwSerialPort == NULL)
@@ -408,8 +383,6 @@ void 		WT2003S::clearBuffer( void )
 		delay(1); //1 byte at 9600bps should take 1ms
 	}
 }
-
-
 void 		WT2003S::sendCommandHW(uint8_t commandLength)
 {
 clearBuffer(); //Clear anything in the buffer
@@ -428,7 +401,6 @@ clearBuffer(); //Clear anything in the buffer
 	_hwSerialPort->write(crc); //Send CRC
 	_hwSerialPort->write(MP3_END_CODE);
 }
-
 void 		WT2003S::sendCommandSW(uint8_t commandLength)
 {
 	clearBuffer(); //Clear anything in the buffer
