@@ -7,7 +7,6 @@ Use is very simple with either a hardware or software serial port.
 The simple dependencies (HardwareSerial and SoftwareSerial) make it suitable for use on any Arduino-compatible platform. 
 
 Created: June 2018
-Last Updated: August 2018
 
 Authors:
 Owen Lyke, N. Seidle, T. Tenbergen
@@ -98,7 +97,7 @@ public:
 	uint8_t setEQ(uint8_t eqType);
 	bool isPlaying(void);
 	uint8_t getPlayStatus(void);
-	void pause(void);
+	uint8_t pause(void);
 	uint8_t playNext(void);
 	uint8_t playPrevious(void);
 	uint8_t stopPlaying(void);

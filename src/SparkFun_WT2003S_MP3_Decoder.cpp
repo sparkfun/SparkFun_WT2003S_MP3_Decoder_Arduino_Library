@@ -5,7 +5,6 @@ SparkFun_WT2003S_MP3_Decoder.cpp
 Header file: SparkFun_WT2003S_MP3_Decoder.h
 
 Created: June 2018
-Last Updated: August 2018
 
 Authors:
 Owen Lyke, N. Seidle, T. Tenbergen
@@ -260,7 +259,7 @@ uint8_t WT2003S::getPlayStatus(void)
 	sendCommand(1);
 	return (getTwoByteResponse() & 0xFF);
 }
-void WT2003S::pause(void)
+uint8_t WT2003S::pause(void)
 {
 	commandBytes[0] = MP3_COMMAND_PAUSE;
 	sendCommand(1);
