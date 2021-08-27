@@ -62,18 +62,16 @@ Owen Lyke, N. Seidle, T. Tenbergen
 #define MP3_START_CODE 0x7E
 #define MP3_END_CODE 0xEF
 
-
-
-
-class WT2003S {
+class WT2003S
+{
 private:
 	void sendCommandHW(uint8_t commandLength);
 	void sendCommandSW(uint8_t commandLength);
 
 protected:
-	HardwareSerial 	*_hwSerialPort;
-	SoftwareSerial 	*_swSerialPort;
-	uint8_t 		_busyPin;
+	HardwareSerial *_hwSerialPort;
+	SoftwareSerial *_swSerialPort;
+	uint8_t _busyPin;
 
 public:
 	uint8_t commandBytes[MP3_NUM_CMD_BYTES];
@@ -86,31 +84,30 @@ public:
 	void begin(SoftwareSerial &serialPort, uint8_t pin);
 	void begin(HardwareSerial &serialPort, uint8_t pin);
 
-	uint8_t setPlaymodeSingleNoLoop ( void );
-	uint8_t setPlaymodeSingleLoop ( void );
-	uint8_t setPlaymodeAllLoop ( void );
-	uint8_t setPlaymodeRandom ( void );
+	uint8_t setPlaymodeSingleNoLoop(void);
+	uint8_t setPlaymodeSingleLoop(void);
+	uint8_t setPlaymodeAllLoop(void);
+	uint8_t setPlaymodeRandom(void);
 
-	uint16_t getSongCount( void );
+	uint16_t getSongCount(void);
 	void getSongName();
 	uint8_t playTrackNumber(uint8_t trackNumber);
 	uint8_t playFileName(uint8_t fileNumber);
 	uint8_t setVolume(uint8_t volumeLevel);
-	uint8_t getVolume( void );
+	uint8_t getVolume(void);
 	uint8_t setEQ(uint8_t eqType);
-	bool isPlaying( void );
-	uint8_t getPlayStatus( void );
-	void pause( void );
-	uint8_t playNext( void );
-	uint8_t playPrevious( void );
-	uint8_t stopPlaying( void );
-
+	bool isPlaying(void);
+	uint8_t getPlayStatus(void);
+	void pause(void);
+	uint8_t playNext(void);
+	uint8_t playPrevious(void);
+	uint8_t stopPlaying(void);
 
 	void sendCommand(uint8_t commandLength);
-	uint8_t getResponse( void );
-	uint16_t getTwoByteResponse( void );
-	bool responseAvailable( void );
-	void clearBuffer( void );
+	uint8_t getResponse(void);
+	uint16_t getTwoByteResponse(void);
+	bool responseAvailable(void);
+	void clearBuffer(void);
 };
 
 #endif
